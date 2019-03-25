@@ -8,13 +8,26 @@ public class List_inChainOfNodes{
     /**
       Construct an empty list
      */
+    public List_inChainOfNodes() {
+    }
+
+    public List_inChainOfNodes(Node ref) {
+        headReference = ref;
+    }
      
 
     /**
       @return the number of elements in this list
      */
-    // public int size() {
-    // }
+    public int size() {
+        Node element = headReference;
+	int length = 0;
+	while (element != null) {
+	    length++;
+	    element = element.getReferenceToNextNode();
+	}
+	return length;
+    }
 
     
      /**
@@ -22,8 +35,16 @@ public class List_inChainOfNodes{
        format:
            # elements [element0,element1,element2,] 
       */
-    // public String toString() {
-    // }
+    public String toString() {
+       String stringRep = "# elements [";
+       for(Node element = headReference;
+	   element != null;
+	   element = element.getReferenceToNextNode()) {
+            stringRep += element.getCargoReference() + ",";
+       }
+       return stringRep + "]";
+
+    }
     
     
     /**
@@ -32,6 +53,7 @@ public class List_inChainOfNodes{
       @return true, in keeping with conventions yet to be discussed
      */
      public boolean addAsHead( Object val) {
+	headReference = new Node(val, headReference); 
         return true;
      }
 }
