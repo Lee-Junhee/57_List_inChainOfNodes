@@ -75,8 +75,7 @@ public class List_inChainOfNodes{
 
     public boolean add(int index, Object val) {
         if(index == 0) {
-	    addAsHead(val);
-	    return true;
+	    return addAsHead(val);
 	}
 	Node target = headReference;
 	for(int element = 1; element < index; element ++) {
