@@ -52,8 +52,50 @@ public class List_inChainOfNodes{
 
       @return true, in keeping with conventions yet to be discussed
      */
-     public boolean addAsHead( Object val) {
+    public boolean addAsHead( Object val) {
 	headReference = new Node(val, headReference); 
         return true;
-     }
+    }
+
+    public void set(int index, Object val) {
+	Node target = headReference;
+        for(int element = 0; element < index; element ++) {
+	    target = target.getReferenceToNextNode();
+	}
+	target.setCargoReference(val);
+    }
+
+    public Object get(int index) {
+        Node target = headReference;
+	for(int element = 0; element < index; element ++) {
+	    target = target.getReferenceToNextNode();
+	}
+	return target.getCargoReference();
+    }
+
+    public boolean add(int index, Object val) {
+        if(index == 0) {
+	    addAsHead(val);
+	    return true;
+	}
+	Node target = headReference;
+	for(int element = 1; element < index; element ++) {
+	    target = target.getReferenceToNextNode();
+	}
+	target.setReferenceToNextNode(new Node(val, target.getReferenceToNextNode()));
+	return true;
+    }
+
+    public boolean remove(int index) {
+	if(index == 0) {
+	    headReference = headReference.getReferenceToNextNode();
+	    return true;
+	}
+	Node target = headReference;
+	for(int element = 1; element < index; element ++) {
+	    target = target.getReferenceToNextNode();
+	}
+	target.setReferenceToNextNode(target.getReferenceToNextNode());
+	return true;
+    }
 }
