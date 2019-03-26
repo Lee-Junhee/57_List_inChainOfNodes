@@ -57,31 +57,29 @@ public class List_inChainOfNodes{
         return true;
     }
 
-    public void set(int index, Object val) {
-	Node target = headReference;
-        for(int element = 0; element < index; element ++) {
-	    target = target.getReferenceToNextNode();
-	}
-	target.setCargoReference(val);
+    public Object set(int index, Object val) {
+    	return getNode(index).setCargoReference(val);
+    }
+	    
+    public Object get(int index) {
+	return getNode(index).getCargoReference();
     }
 
-    public Object get(int index) {
-        Node target = headReference;
-	for(int element = 0; element < index; element ++) {
-	    target = target.getReferenceToNextNode();
-	}
-	return target.getCargoReference();
+    private Node getNode(int index) {
+	Node target;
+	for(target = headReference;
+	    0 <= index;
+	    index--, target = target.getReferenceToNextNode())
+	{}
+	return target;
     }
 
     public boolean add(int index, Object val) {
         if(index == 0) {
 	    return addAsHead(val);
 	}
-	Node target = headReference;
-	for(int element = 1; element < index; element ++) {
-	    target = target.getReferenceToNextNode();
-	}
-	target.setReferenceToNextNode(new Node(val, target.getReferenceToNextNode()));
+	getNode(index - 1).setReferenceToNextNode(
+	    new Node(val, getNode(index - 1).getReferenceToNextNode()));
 	return true;
     }
 
@@ -90,11 +88,8 @@ public class List_inChainOfNodes{
 	    headReference = headReference.getReferenceToNextNode();
 	    return true;
 	}
-	Node target = headReference;
-	for(int element = 1; element < index; element ++) {
-	    target = target.getReferenceToNextNode();
-	}
-	target.setReferenceToNextNode(target.getReferenceToNextNode());
+	getNode(index - 1).setReferenceToNextNode(
+	    getNode(index).getReferenceToNextNode());
 	return true;
     }
 }
